@@ -2589,7 +2589,6 @@ def resumen():
                     validaciones2.loc[43,'Observacion']="Error: se declaró que no difiere con agip y no se detectó la nota correspondiente segun los RT en el campo notas del form. tecnico de mensura"
         elif dif_agip =="si":
 
-
             if supdemo_3>0:
                 if "agip_dif_menos" in band_notas:
                     validaciones2.loc[43,'Resultado']=0
