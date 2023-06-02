@@ -77,7 +77,6 @@ marco5 = Frame(marco1)
 marco5.config(width="200",height="60")
 marco5.grid(padx=5, pady=3, row = 0, column=2)
 
-
 label = Label(marco4,text="VAC - (Validador Automatico CEP)")
 label.configure(font=("Gotham Rounded",8))
 label.grid(padx=25, pady=2, row = 0, column=1)
@@ -85,7 +84,6 @@ label.grid(padx=25, pady=2, row = 0, column=1)
 label1 = Label(marco4,text="Subgerencia Operativa de Registro de Mensuras\nGerencia Operativa de Catastro Físico\nDirección General de Registro de Obras y Catastro")
 label1.configure(font=("Gotham Rounded",8))
 label1.grid(padx=25, pady=2, row = 1, column=1)
-
 
 tv = ttk.Treeview(marco2, height=20)
 tv['columns']=("Nº","Validacion")
@@ -301,6 +299,7 @@ def Procesar_Archivo():
 
     lados_parcelas_l = list()
 
+
     if doc != "":
         model = doc.modelspace() #inserta el model espace en la variable model
         layouts = doc.layout_names()
@@ -340,9 +339,8 @@ def Procesar_Archivo():
                 pass
 
         verscrlbar = ttk.Scrollbar(marco2, orient="vertical", command=tv.yview)
-        verscrlbar.pack(side ='right', fill ='y') 
         tv.configure(yscrollcommand = verscrlbar.set)
-
+        verscrlbar.pack(side ='right', fill ='y') 
         
         tv.pack(fill="both", expand=True)
 
@@ -2580,13 +2578,23 @@ def resumen():
             if "agip_nodif" in band_notas:
                 validaciones2.loc[43,'Resultado']=0
                 validaciones2.loc[43,'Observacion']="Ok: se declaró que no difiere con agip y se detectó la nota correspondiente segun los RT en el campo notas del form. tecnico de mensura"
+                
+                validaciones2.loc[44,'Resultado']=0
+                validaciones2.loc[44,'Observacion']="Ok: se declaró que no difiere con agip y se detectó la nota correspondiente segun los RT en el campo notas del form. tecnico de mensura"
+            
             else:
                 if "cep_demolicion" in band_notas:
                     validaciones2.loc[43,'Resultado']=0
                     validaciones2.loc[43,'Observacion']="Ok: se declaró que no difiere con agip y se detectó la nota de Cep demolicion en el campo notas del form. tecnico de mensura"
+
+                    validaciones2.loc[44,'Resultado']=0
+                    validaciones2.loc[44,'Observacion']="Ok: se declaró que no difiere con agip y se detectó la nota de Cep demolicion en el campo notas del form. tecnico de mensura"
                 else:
                     validaciones2.loc[43,'Resultado']=-1
                     validaciones2.loc[43,'Observacion']="Error: se declaró que no difiere con agip y no se detectó la nota correspondiente segun los RT en el campo notas del form. tecnico de mensura"
+
+                    validaciones2.loc[44,'Resultado']=-1
+                    validaciones2.loc[44,'Observacion']="Error: se declaró que no difiere con agip y no se detectó la nota correspondiente segun los RT en el campo notas del form. tecnico de mensura"
         elif dif_agip =="si":
 
             if supdemo_3>0:
@@ -2625,39 +2633,10 @@ def resumen():
             validaciones2.loc[44,'Resultado']=-1
             validaciones2.loc[44,'Observacion']="Error: no se puede validar nota de agip por no haberse completado si difere o no con agip las construcciones relevadas"
         
-        # if len(agip_supnueva) == len (info_form_nuevo_1):
-        #     validaciones2.loc[44,'Resultado']=0
-        #     validaciones2.loc[44,'Observacion']="Ok: Coincide la cantidad de formularios declarados en el form resumen con los formularios de los bloques form insertos en el dxf"
-
-            # for sup in agip_supnueva:
-            #     for form in info_form_nuevo_1:    
-            #         if sup == form["sup"]:
-            #             band_agip_dxf.append("0")
-            #         else:
-            #             band_agip_dxf.append("-1")
-            #     if "0" in band_agip_dxf:
-            #         band_2.append("0")
-            #     else:
-            #         band_2.append("-1")
-
-            # if "-1" in band_2 and len(band_mejora_nueva_arc_0)==0:
-            #     validaciones2.loc[45,'Resultado']=-1
-            #     validaciones2.loc[45,'Observacion']="Error: No Coinciden las superficies declaradas en el form resumen con la de los poligonos con bloque 'form' del archivo dxf"      
-            # else:
-            #     validaciones2.loc[45,'Resultado']=0
-            #     validaciones2.loc[45,'Observacion']="Ok: La superficie de los poligonos a declarar en el dxf coinciden con las superficies declaradas en el formulrio resumen"
-            
-        # else:
-        #     validaciones2.loc[44,'Resultado']=-1
-        #     validaciones2.loc[44,'Observacion']="Error: No Coincide la cantidad de formularios declarados en el form resumen con los formularios de los bloques form insertos en el dxf"
-
-            # validaciones2.loc[45,'Resultado']=-1
-            # validaciones2.loc[45,'Observacion']="Error: No es posible verificar las superficies a declarar dado que no cinciden la cantidad de formularios a declarar en el dxf y en el form resumen"
         if "-1" in band_cur_parcela:
             validaciones2.loc[45,'Resultado']=-1
             validaciones2.loc[45,'Observacion']="Error: No se puede comprobar APH y afectaciones de la parcela por no poder conectarse con Ciudad 3d, verifique conexión de internet"
         else:
-            # if  (nota_cep_demolicion.lower().replace(" ","")).replace(".","") in (notas_0[0].lower()):
             if "cep_demolicion" in band_notas:
                 if aph != "No":
                     validaciones2.loc[45,'Resultado']=-1
@@ -2673,7 +2652,6 @@ def resumen():
 
 
             if aph != "No":
-                # if  nota_aph.lower().replace(" ","") in (notas_0[0].lower()):
                 if "aph" in band_notas:
                     validaciones2.loc[46,'Resultado']=0
                     validaciones2.loc[46,'Observacion']="Ok: Se ha indicado la Nota de Aph en formulario de Mensura"
@@ -3253,7 +3231,6 @@ def salida_pdf():
         i=int(680)
         c.setFont("Times-Roman", 9)
         c.setFillColorRGB(1,1,1)
-
         # for index, row in validaciones3.iterrows():
         for k in range (len(validaciones3)):
             if "Error:" in validaciones3.loc[k,'Observacion'] or "ERROR:" in validaciones3.loc[k,'Observacion'] or "error:" in validaciones3.loc[k,'Observacion']:
