@@ -286,7 +286,13 @@ def analisis_IFDOM(pages_IFDOM_text):
     dom_desig = list()
     dom_obs = list()
     
-    dom_sup_0 =  re.findall(r'Superficie en mts 2: (.*?)Descripción según título:', pages_IFDOM_text)
+    print("pages_IFDOM_text")
+    print(pages_IFDOM_text)
+
+    expresion_regular = r'Superficie en mts 2: ([\d,\.]+)'
+    dom_sup_0 = re.findall(expresion_regular, pages_IFDOM_text)
+
+    # dom_sup_0 =  re.findall(r'Superficie en mts 2: (.*?)Descripción según título:', pages_IFDOM_text)
     dom_desc_0 = re.findall(r'Descripción según título: (.*)Restiricciones y Afectaciones Inscriptas:', pages_IFDOM_text)
     dom_rest_0 = re.findall(r'Restiricciones y Afectaciones Inscriptas: (.*)Observaciones:', pages_IFDOM_text)
     dom_obs_0 = re.findall(r'Observaciones: (.*)\¿Desea agregar otros datos de Dominio\?: ', pages_IFDOM_text)
@@ -324,6 +330,7 @@ def analisis_IFDOM(pages_IFDOM_text):
             sup_tit = sup_tit  + dom_sup[i]
         else:
             sup_tit = 0
+    
     return dom_insc, dom_desc_1, dom_rest_1, dom_desig, dom_obs,sup_tit, dom_sup 
 
 def analisis_FOMUBI(pages_FOMUBI_text):

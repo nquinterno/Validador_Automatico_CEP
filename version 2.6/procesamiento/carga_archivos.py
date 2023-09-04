@@ -53,13 +53,14 @@ def Abrir_Archivo_IFTAM():
             for page_num in range(num_pages_doc1):
                 pages_doc1_text += (documento_1.pages[page_num]).extract_text()
 
-                if 'FORMULARIO TECNICO ACTOS DE MENSURA' in pages_doc1_text:
-                    pages_IFTAM_text = pages_doc1_text
-                    return pages_IFTAM_text
+            if 'FORMULARIO TECNICO ACTOS DE MENSURA' in pages_doc1_text:
+                pages_IFTAM_text = pages_doc1_text
+                documento_1.stream.close() 
+                return pages_IFTAM_text
 
-                else:
-                    print(messagebox.showerror(message="El archivo pdf seleccionado no es un formulario de Mensura", title="Error"))
-            documento_1.stream.close() 
+            else:
+                print(messagebox.showerror(message="El archivo pdf seleccionado no es un formulario de Mensura", title="Error"))
+                documento_1.stream.close() 
         else:
             print(messagebox.showerror(message="El archivo selecciondo no es un archivo pdf", title="Error"))
     except IOError:
@@ -88,12 +89,13 @@ def Abrir_Archivo_IFDOM():
             for page_num in range(num_pages_doc1):
                 pages_doc1_text += (documento_1.pages[page_num]).extract_text()
 
-                if 'FORMULARIO DE DATOS DE DOMINIO' in pages_doc1_text:
-                    pages_IFDOM_text = pages_doc1_text
-                    return pages_IFDOM_text
-                else:
-                    return(print(messagebox.showerror(message="El archivo pdf seleccionado no es un formulario de Dominio", title="Error")))
-            documento_1.stream.close()            
+            if 'FORMULARIO DE DATOS DE DOMINIO' in pages_doc1_text:
+                pages_IFDOM_text = pages_doc1_text
+                documento_1.stream.close() 
+                return pages_IFDOM_text
+            else:
+                documento_1.stream.close() 
+                return(print(messagebox.showerror(message="El archivo pdf seleccionado no es un formulario de Dominio", title="Error")))          
         else:
             return(print(messagebox.showerror(message="El archivo selecciondo no es un archivo pdf", title="Error")))
 
@@ -120,13 +122,14 @@ def Abrir_Archivo_IFFVN():
             for page_num in range(num_pages_doc1):
                 pages_doc1_text += (documento_1.pages[page_num]).extract_text()
 
-                if 'FORMULARIO DE VALUACION' in pages_doc1_text:
-                    pages_IFFVN_text = pages_doc1_text
-                    return pages_IFFVN_text
+            if 'FORMULARIO DE VALUACION' in pages_doc1_text:
+                pages_IFFVN_text = pages_doc1_text
+                documento_1.stream.close() 
+                return pages_IFFVN_text
 
-                else:
-                    print(messagebox.showerror(message="El archivo pdf seleccionado no es un formulario de Resumen", title="Error"))
-            documento_1.stream.close()            
+            else:
+                print(messagebox.showerror(message="El archivo pdf seleccionado no es un formulario de Resumen", title="Error"))
+                documento_1.stream.close()            
         else:
             print(messagebox.showerror(message="El archivo selecciondo no es un archivo pdf", title="Error"))
 
@@ -153,13 +156,13 @@ def Abrir_Archivo_FOMUBI():
             for page_num in range(num_pages_doc1):
                 pages_doc1_text += (documento_1.pages[page_num]).extract_text()
 
-                if 'Formulario de Ubicación' in pages_doc1_text:
-                    pages_FOMUBI_text = pages_doc1_text
-                    return pages_FOMUBI_text
-                else:
-                    print(messagebox.showerror(message="El archivo pdf seleccionado no es un formulario de Ubicación", title="Error"))
-            documento_1.stream.close()
-         
+            if 'Formulario de Ubicación' in pages_doc1_text:
+                pages_FOMUBI_text = pages_doc1_text
+                documento_1.stream.close()
+                return pages_FOMUBI_text
+            else:
+                documento_1.stream.close()
+                print(messagebox.showerror(message="El archivo pdf seleccionado no es un formulario de Ubicación", title="Error"))         
         else:
             print(messagebox.showerror(message="El archivo selecciondo no es un archivo .pdf", title="Error"))
 
