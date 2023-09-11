@@ -8,9 +8,10 @@ from procesamiento.procesamiento_formularios import *
 from procesamiento.procesamiento_cur import *
 from procesamiento.procesamiento_georref import *
 from procesamiento.carga_archivos import *
-from procesamiento.comparacion_formularios import *
+from procesamiento.comparacion_formularios_cep import *
+from procesamiento.comparacion_formularios_legajo import *
 from salidas.informe import *
-from procesamiento.comparacion_formularios import *
+from procesamiento.comparacion_formularios_cep import *
 from pandas import DataFrame, read_excel, concat, read_csv
 from tkinter import*
 from tkinter import messagebox
@@ -103,12 +104,13 @@ def muestra_resumen():
     mostrar_resumen(smp_f, area_parc_dxf, area_excedente_dxf, plantas_dxf_f, sup_cub_dxf_f, sup_semicub_dxf_f, sup_descub_dxf_f, sup_emp_dxf_f, sup_nueva_dxf_f)
 
 
-def descarga_Informe_pdf():
+def descarga_Informe_pdf(opcion):
     global validaciones2,parcelas_poly,parc_ant_posgba_2,manz_ant_posgba_2,smp_f,smp_fomubi,exp_layout_f,exp_fomubi, medidas_dxf_f, lados_iftam, cubierta_3_f, mensura_3_f, plantas_3_f, semi_3_f, des_3_f, cont_3_f, area_parc_dxf, area_excedente_dxf, piso_con_mejoras_f, sup_cub_dxf_f, sup_semicub_dxf_f, sup_descub_dxf_f, sup_emp_dxf_f, sup_nueva_dxf_f,version,resultado_final
 
-    salida_pdf(validaciones2,parcelas_poly,parc_ant_posgba_2,manz_ant_posgba_2,smp_f,smp_fomubi,exp_layout_f,exp_fomubi, medidas_dxf_f, lados_iftam, cubierta_3_f, mensura_3_f, plantas_3_f, semi_3_f, des_3_f, cont_3_f, area_parc_dxf, area_excedente_dxf, piso_con_mejoras_f, sup_cub_dxf_f, sup_semicub_dxf_f, sup_descub_dxf_f, sup_emp_dxf_f, sup_nueva_dxf_f,version,resultado_final)
+    salida_pdf(opcion,validaciones2,parcelas_poly,parc_ant_posgba_2,manz_ant_posgba_2,smp_f,smp_fomubi,exp_layout_f,exp_fomubi, medidas_dxf_f, lados_iftam, cubierta_3_f, mensura_3_f, plantas_3_f, semi_3_f, des_3_f, cont_3_f, area_parc_dxf, area_excedente_dxf, piso_con_mejoras_f, sup_cub_dxf_f, sup_semicub_dxf_f, sup_descub_dxf_f, sup_emp_dxf_f, sup_nueva_dxf_f,version,resultado_final)
 
-def Procesar_Archivo():
+
+def Procesar_Archivo(opcion):
     global doc_f
     global last_dir
     global validaciones2
@@ -210,7 +212,13 @@ def Procesar_Archivo():
         # validaciones_extra, area_excedente_dxf_f = resumen(parcelas_poly_close_f, lados_parcelas_l_f, excedentes_poly_f, pages_IFTAM_text, pages_IFFVN_text, pages_IFDOM_text, piso_con_mejoras_f, info_form_emp_f, info_form_nuevo_f, agip_supnueva_f, supdemo_3_f, cont_3_f, particularidades_f, medidas_dxf_f, sup_cub_dxf_f, sup_semicub_dxf_f, sup_descub_dxf_f, dif_agip_f, notas_1_f, aph_f, zonificacion_f, cur_afectaciones_f, cubierta_3_f, mensura_3_f, plantas_3_f, semi_3_f, des_3_f, sup_tit_f, band_mejora_cub_arc_0, band_mejora_semi_arc_0, band_mejora_desc_arc_0, band_mejora_emp_arc_0, band_mejora_nueva_arc_0, medidas_f, band_cur_parcela_f)
         # #agregar smp_f y exp_layout_f como entrada
 
-        validaciones_extra, lados_iftam, smp_fomubi, exp_fomubi,area_parc_dxf, area_excedente_dxf , sup_emp_dxf_f, sup_nueva_dxf_f, plantas_dxf_f,mensura_3_f,plantas_3_f,cubierta_3_f,semi_3_f,des_3_f, cont_3_f = resumen(smp_f, pages_IFTAM_text, pages_IFFVN_text, pages_IFDOM_text,pages_FOMUBI_text,parcelas_poly,excedentes_poly,piso_con_mejoras_f, info_form_emp_f,info_form_nuevo_f,exp_layout_f, band_parc_arc_0, medidas_dxf_f, sup_cub_dxf_f, sup_semicub_dxf_f, sup_descub_dxf_f, sup_descont_dxf_f, band_mejora_cub_arc_0, band_mejora_semi_arc_0, band_mejora_desc_arc_0, band_mejora_emp_arc_0, band_mejora_nueva_arc_0,nom_parc_list)
+        if opcion.get() == 1:
+            validaciones_extra, lados_iftam, smp_fomubi, exp_fomubi,area_parc_dxf, area_excedente_dxf , sup_emp_dxf_f, sup_nueva_dxf_f, plantas_dxf_f,mensura_3_f,plantas_3_f,cubierta_3_f,semi_3_f,des_3_f, cont_3_f = resumen(smp_f, pages_IFTAM_text, pages_IFFVN_text, pages_IFDOM_text,pages_FOMUBI_text,parcelas_poly,excedentes_poly,piso_con_mejoras_f, info_form_emp_f,info_form_nuevo_f,exp_layout_f, band_parc_arc_0, medidas_dxf_f, sup_cub_dxf_f, sup_semicub_dxf_f, sup_descub_dxf_f, sup_descont_dxf_f, band_mejora_cub_arc_0, band_mejora_semi_arc_0, band_mejora_desc_arc_0, band_mejora_emp_arc_0, band_mejora_nueva_arc_0,nom_parc_list)
+        elif opcion.get() ==2:
+            validaciones_extra, lados_iftam, smp_fomubi, exp_fomubi,area_parc_dxf, area_excedente_dxf , sup_emp_dxf_f, sup_nueva_dxf_f, plantas_dxf_f,mensura_3_f,plantas_3_f,cubierta_3_f,semi_3_f,des_3_f, cont_3_f = resumen_legajo(smp_f, pages_IFTAM_text, pages_IFFVN_text, pages_IFDOM_text,parcelas_poly,excedentes_poly,piso_con_mejoras_f, info_form_emp_f,info_form_nuevo_f,exp_layout_f, band_parc_arc_0, medidas_dxf_f, sup_cub_dxf_f, sup_semicub_dxf_f, sup_descub_dxf_f, sup_descont_dxf_f, band_mejora_cub_arc_0, band_mejora_semi_arc_0, band_mejora_desc_arc_0, band_mejora_emp_arc_0, band_mejora_nueva_arc_0,nom_parc_list)
+
+        else:
+            pass
 
 
         validaciones2 = concat([validaciones_archivo, validaciones_layer, validaciones_bloques, validaciones_model, validaciones_cotas, validaciones_layout, validaciones_georref, validaciones_extra], ignore_index=True)

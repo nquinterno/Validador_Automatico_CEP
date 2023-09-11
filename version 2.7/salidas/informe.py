@@ -5,7 +5,14 @@ from reportlab.pdfgen import canvas
 from reportlab.lib import pdfencrypt
 from tkinter import messagebox, filedialog, ttk
 
-def salida_pdf(validaciones2,parcelas_poly,parc_ant_posgba_2,manz_ant_posgba_2,smp,smp_fomubi,exp_layout,exp_fomubi, medidas_dxf, lados_iftam, cubierta_3, mensura_3, plantas_3, semi_3, des_3, cont_3,     area_parc_dxf, area_excedente_dxf, plantas_dxf, cubierta_dxf, semicubierta_dxf, descubierta_dxf, sup_emp_dxf, sup_nueva_dxf,version,resultado_final):
+def salida_pdf(opcion,validaciones2,parcelas_poly,parc_ant_posgba_2,manz_ant_posgba_2,smp,smp_fomubi,exp_layout,exp_fomubi, medidas_dxf, lados_iftam, cubierta_3, mensura_3, plantas_3, semi_3, des_3, cont_3,     area_parc_dxf, area_excedente_dxf, plantas_dxf, cubierta_dxf, semicubierta_dxf, descubierta_dxf, sup_emp_dxf, sup_nueva_dxf,version,resultado_final):
+
+    if opcion.get()==1:
+        cep_legajo = "Validación Constitución de Estado Parcelario"
+    elif opcion.get()==2:
+        cep_legajo = "Validación Legajo Parcelario de Mensura"
+
+
 
     validaciones3 = DataFrame(columns=['N°','Observacion'])
     enc = pdfencrypt.StandardEncryption(userPassword='',ownerPassword=None,canPrint=0, canModify=0, canAnnotate=0)
@@ -15,7 +22,7 @@ def salida_pdf(validaciones2,parcelas_poly,parc_ant_posgba_2,manz_ant_posgba_2,s
         validaciones3.loc[i,"Observacion"] = validaciones2.loc[i,"Observacion"]
         
 
-    if len(validaciones3)>35:
+    if len(validaciones3)>37:
 
         directorio = filedialog.askdirectory()
         if len(smp):
@@ -40,6 +47,7 @@ def salida_pdf(validaciones2,parcelas_poly,parc_ant_posgba_2,manz_ant_posgba_2,s
 
         c.drawString(175, 720,  f"Resultado Validación Archivo DXF Parcela: {smp_hoja}")
         c.drawString(175, 700,  f"Validador Automatico Cep Versión {version}")
+        c.drawString(175, 680,  f"{cep_legajo}")
 
         
         if "Error:" in resultado_final:
@@ -47,18 +55,18 @@ def salida_pdf(validaciones2,parcelas_poly,parc_ant_posgba_2,manz_ant_posgba_2,s
         else:
             c.setFillColorRGB(0.68,1,0.62)
         #dibuja rectangulo del fondo del texto de la validacion
-        c.rect(190,675,250,20,stroke=1,fill=1)
+        c.rect(190,635,250,20,stroke=1,fill=1)
         #cambia color a negro para el texto
         c.setFillColorRGB(0,0,0)
         c.setFont("Times-Roman", 10)
-        c.drawString(200, 680,  f"{resultado_final}")
+        c.drawString(200, 640,  f"{resultado_final}")
 
         #Encabezados de tabla
-        c.drawString(20, 660, 'N°')
-        c.drawString(50, 660, 'Observacion')
+        c.drawString(20, 620, 'N°')
+        c.drawString(50, 620, 'Observacion')
 
         #Filas de tabla
-        i=int(640)
+        i=int(600)
         c.setFont("Times-Roman", 9)
         c.setFillColorRGB(1,1,1)
         # for index, row in validaciones3.iterrows():
@@ -82,7 +90,7 @@ def salida_pdf(validaciones2,parcelas_poly,parc_ant_posgba_2,manz_ant_posgba_2,s
 
             if i <= 20:
                 c.showPage()
-                i=int(660)
+                i=int(600)
 
                 #Impresión en canvas
                 c.setFont("Times-Roman", 12)
@@ -95,23 +103,25 @@ def salida_pdf(validaciones2,parcelas_poly,parc_ant_posgba_2,manz_ant_posgba_2,s
                 
                 c.drawString(175, 720,  f"Resultado Validación Archivo DXF Parcela:{smp_hoja}")
                 c.drawString(175, 700,  f"Validador Automatico Cep Versión {version}")
+                c.drawString(175, 680,  f"{cep_legajo}")
+
                 if "Error:" in resultado_final:
                     c.setFillColorRGB(1,0.62,0.62)
                 else:
                     c.setFillColorRGB(0.68,1,0.62)
 
-                c.rect(190,675,250,20,stroke=1,fill=1)
+                c.rect(190,635,250,20,stroke=1,fill=1)
                 #cambia color a negro para el texto
                 c.setFillColorRGB(0,0,0)
                 c.setFont("Times-Roman", 10)
-                c.drawString(200, 680,  f"{resultado_final}")
+                c.drawString(200, 640,  f"{resultado_final}")
 
                 #Encabezados de tabla
-                c.drawString(20, 660, 'N°')
-                c.drawString(50, 660, 'Observacion')
+                c.drawString(20, 620, 'N°')
+                c.drawString(50, 620, 'Observacion')
 
                 #Filas de tabla
-                i=640
+                i=600
                 c.setFont("Times-Roman", 9)
                 c.setFillColorRGB(1,1,1)
             else:
@@ -129,15 +139,17 @@ def salida_pdf(validaciones2,parcelas_poly,parc_ant_posgba_2,manz_ant_posgba_2,s
         
         c.drawString(175, 720,  f"Resultado Validación Archivo DXF Parcela:{smp_hoja}")
         c.drawString(175, 700,  f"Validador Automatico Cep Versión {version}")
+        c.drawString(175, 680,  f"{cep_legajo}")
         #dibuja el rectangulo donde se dibujaran la mz y las parcelas
+        
         c.setFillColorRGB(0,1,0)
-        c.drawString(20,680, "Mz. Ciudad3D")
+        c.drawString(20,660, "Mz. Ciudad3D")
 
         c.setFillColorRGB(1,0,0)
-        c.drawString(225, 680, "Parcela Ciudad3D")
+        c.drawString(225, 660, "Parcela Ciudad3D")
 
         c.setFillColorRGB(0,0,1)
-        c.drawString(450, 680,  "Parcela Medida")
+        c.drawString(450, 660,  "Parcela Medida")
 
         c.rect(10,20,570,650,stroke=1,fill=0)
         c.setFont("Times-Roman", 12)
@@ -274,6 +286,7 @@ def salida_pdf(validaciones2,parcelas_poly,parc_ant_posgba_2,manz_ant_posgba_2,s
         
         c.drawString(175, 720,  f"Resultado Validación Archivo DXF Parcela:{smp_hoja}")
         c.drawString(175, 700,  f"Validador Automatico Cep Versión {version}")
+        c.drawString(175, 680,  f"{cep_legajo}")
 
         try: 
             mensura_3
@@ -313,135 +326,135 @@ def salida_pdf(validaciones2,parcelas_poly,parc_ant_posgba_2,manz_ant_posgba_2,s
         c1 = 215
         d1 = b1 + c1
 
-        c.rect(k1,675,a1,20,stroke=1,fill=0)
-        c.rect(b1,675,c1,20,stroke=1,fill=0)
-        c.rect(d1,675,c1,20,stroke=1,fill=0) 
-        
-        c.drawString(k1+10, 680, 'Variable')
-        c.drawString(b1+10, 680, 'Valor Según DXF')
-        c.drawString(d1+10, 680, 'Valor Según Formulario')
-
         c.rect(k1,655,a1,20,stroke=1,fill=0)
         c.rect(b1,655,c1,20,stroke=1,fill=0)
-        c.rect(d1,655,c1,20,stroke=1,fill=0)        
+        c.rect(d1,655,c1,20,stroke=1,fill=0) 
         
-        c.drawString(k1+10, 660, 'SMP')
-        c.drawString(b1+10, 660, f'{smp_hoja}')
-        try:
-            c.drawString(d1+10, 660, f'{smp_fomubi}')
-        except:
-            c.drawString(d1+10, 660, f'No se cargo form. de ubic.')
+        c.drawString(k1+10, 660, 'Variable')
+        c.drawString(b1+10, 660, 'Valor Según DXF')
+        c.drawString(d1+10, 660, 'Valor Según Formulario')
 
         c.rect(k1,635,a1,20,stroke=1,fill=0)
         c.rect(b1,635,c1,20,stroke=1,fill=0)
-        c.rect(d1,635,c1,20,stroke=1,fill=0)           
+        c.rect(d1,635,c1,20,stroke=1,fill=0)        
         
-        c.drawString(k1+10, 640, 'Expediente')
-        c.drawString(b1+10, 640, f'{exp_layout}')
+        c.drawString(k1+10, 640, 'SMP')
+        c.drawString(b1+10, 640, f'{smp_hoja}')
         try:
-            c.drawString(d1+10, 640, f'{exp_fomubi}')
+            c.drawString(d1+10, 640, f'{smp_fomubi}')
         except:
             c.drawString(d1+10, 640, f'No se cargo form. de ubic.')
-        
+
         c.rect(k1,615,a1,20,stroke=1,fill=0)
         c.rect(b1,615,c1,20,stroke=1,fill=0)
-        c.rect(d1,615,c1,20,stroke=1,fill=0)          
+        c.rect(d1,615,c1,20,stroke=1,fill=0)           
         
-        c.drawString(k1+10, 620, 'Superficie Parcela')
-        c.drawString(b1+10, 620, f'{area_parc_dxf}')
-        c.drawString(d1+10, 620, f'{mensura_3}')
-
+        c.drawString(k1+10, 620, 'Expediente')
+        c.drawString(b1+10, 620, f'{exp_layout}')
+        try:
+            c.drawString(d1+10, 620, f'{exp_fomubi}')
+        except:
+            c.drawString(d1+10, 620, f'No se cargo form. de ubic.')
+        
         c.rect(k1,595,a1,20,stroke=1,fill=0)
         c.rect(b1,595,c1,20,stroke=1,fill=0)
-        c.rect(d1,595,c1,20,stroke=1,fill=0)    
+        c.rect(d1,595,c1,20,stroke=1,fill=0)          
         
-        c.drawString(k1+10, 600, 'Superficie Excedente')
-        c.drawString(b1+10, 600, f'{area_excedente_dxf}')
-        c.drawString(d1+10, 600, f'-')
+        c.drawString(k1+10, 600, 'Superficie Parcela')
+        c.drawString(b1+10, 600, f'{area_parc_dxf}')
+        c.drawString(d1+10, 600, f'{mensura_3}')
 
-        
         c.rect(k1,575,a1,20,stroke=1,fill=0)
         c.rect(b1,575,c1,20,stroke=1,fill=0)
-        c.rect(d1,575,c1,20,stroke=1,fill=0)  
+        c.rect(d1,575,c1,20,stroke=1,fill=0)    
         
-        c.drawString(k1+10, 580, 'Cantidad de Plantas')
-        c.drawString(b1+10, 580, f'{len(plantas_dxf)}')
-        c.drawString(d1+10, 580, f'{plantas_3}')
+        c.drawString(k1+10, 580, 'Superficie Excedente')
+        c.drawString(b1+10, 580, f'{area_excedente_dxf}')
+        c.drawString(d1+10, 580, f'-')
 
+        
         c.rect(k1,555,a1,20,stroke=1,fill=0)
         c.rect(b1,555,c1,20,stroke=1,fill=0)
         c.rect(d1,555,c1,20,stroke=1,fill=0)  
         
-        c.drawString(k1+10, 560, 'Superficie cubierta')
-        c.drawString(b1+10, 560, f'{round(sum(cubierta_dxf),2)}')
-        c.drawString(d1+10, 560, f'{cubierta_3}')
-        
+        c.drawString(k1+10, 560, 'Cantidad de Plantas')
+        c.drawString(b1+10, 560, f'{len(plantas_dxf)}')
+        c.drawString(d1+10, 560, f'{plantas_3}')
+
         c.rect(k1,535,a1,20,stroke=1,fill=0)
         c.rect(b1,535,c1,20,stroke=1,fill=0)
         c.rect(d1,535,c1,20,stroke=1,fill=0)  
         
-        c.drawString(k1+10, 540, 'Superficie Semicubierta')
-        c.drawString(b1+10, 540, f'{round(sum(semicubierta_dxf),2)}')
-        c.drawString(d1+10, 540, f'{semi_3}')
-       
+        c.drawString(k1+10, 540, 'Superficie cubierta')
+        c.drawString(b1+10, 540, f'{round(sum(cubierta_dxf),2)}')
+        c.drawString(d1+10, 540, f'{cubierta_3}')
+        
         c.rect(k1,515,a1,20,stroke=1,fill=0)
         c.rect(b1,515,c1,20,stroke=1,fill=0)
         c.rect(d1,515,c1,20,stroke=1,fill=0)  
         
-        c.drawString(k1+10, 520, 'Superficie Descubierta')
-        c.drawString(b1+10, 520, f'{round(sum(descubierta_dxf),2)}')
-        c.drawString(d1+10, 520, f'{des_3}')
-        
+        c.drawString(k1+10, 520, 'Superficie Semicubierta')
+        c.drawString(b1+10, 520, f'{round(sum(semicubierta_dxf),2)}')
+        c.drawString(d1+10, 520, f'{semi_3}')
+       
         c.rect(k1,495,a1,20,stroke=1,fill=0)
         c.rect(b1,495,c1,20,stroke=1,fill=0)
         c.rect(d1,495,c1,20,stroke=1,fill=0)  
         
-        c.drawString(k1+10, 500, 'Superficie en Cont.')
-        c.drawString(b1+10, 500, f'-')
-        c.drawString(d1+10, 500, f'{cont_3}')
-
+        c.drawString(k1+10, 500, 'Superficie Descubierta')
+        c.drawString(b1+10, 500, f'{round(sum(descubierta_dxf),2)}')
+        c.drawString(d1+10, 500, f'{des_3}')
         
         c.rect(k1,475,a1,20,stroke=1,fill=0)
         c.rect(b1,475,c1,20,stroke=1,fill=0)
-        c.rect(d1,475,c1,20,stroke=1,fill=0) 
+        c.rect(d1,475,c1,20,stroke=1,fill=0)  
         
-        c.drawString(k1+10, 480, 'Superficie Empadronada')
-        c.drawString(b1+10, 480, f'{sup_emp_dxf}')
-        c.drawString(d1+10, 480, f'-')
+        c.drawString(k1+10, 480, 'Superficie en Cont.')
+        c.drawString(b1+10, 480, f'-')
+        c.drawString(d1+10, 480, f'{cont_3}')
 
         
         c.rect(k1,455,a1,20,stroke=1,fill=0)
         c.rect(b1,455,c1,20,stroke=1,fill=0)
         c.rect(d1,455,c1,20,stroke=1,fill=0) 
         
-        c.drawString(k1+10, 460, 'Superficie a Empadronar')
-        c.drawString(b1+10, 460, f'{sup_nueva_dxf}')
+        c.drawString(k1+10, 460, 'Superficie Empadronada')
+        c.drawString(b1+10, 460, f'{sup_emp_dxf}')
         c.drawString(d1+10, 460, f'-')
 
-        c.rect(k1,245,a1,200,stroke=1,fill=0)
-        c.rect(b1,245,c1,200,stroke=1,fill=0)
-        c.rect(d1,245,c1,200,stroke=1,fill=0) 
+        
+        c.rect(k1,435,a1,20,stroke=1,fill=0)
+        c.rect(b1,435,c1,20,stroke=1,fill=0)
+        c.rect(d1,435,c1,20,stroke=1,fill=0) 
+        
+        c.drawString(k1+10, 440, 'Superficie a Empadronar')
+        c.drawString(b1+10, 440, f'{sup_nueva_dxf}')
+        c.drawString(d1+10, 440, f'-')
 
-        c.drawString(k1+10, 420, 'Medidas y Rumbos')
+        c.rect(k1,235,a1,200,stroke=1,fill=0)
+        c.rect(b1,235,c1,200,stroke=1,fill=0)
+        c.rect(d1,235,c1,200,stroke=1,fill=0) 
+
+        c.drawString(k1+10, 400, 'Medidas y Rumbos')
         for i in range (0, len(medidas_dxf), 2):
-            c.drawString(b1+10, 440-(20*((i/2)+1)), f'{(medidas_dxf[i])["rumbo"]} - {(medidas_dxf[i])["medida"]}')
+            c.drawString(b1+10, 420-(20*((i/2)+1)), f'{(medidas_dxf[i])["rumbo"]} - {(medidas_dxf[i])["medida"]}')
             
             try:
-                c.drawString(b1+125, 440-(20*((i/2)+1)), f'{(medidas_dxf[i+1])["rumbo"]} - {(medidas_dxf[i+1])["medida"]}')
+                c.drawString(b1+125, 420-(20*((i/2)+1)), f'{(medidas_dxf[i+1])["rumbo"]} - {(medidas_dxf[i+1])["medida"]}')
             
             except:
                 pass
         try:
             for i in range (0,len(lados_iftam),2):
-                c.drawString(d1+10, 440-(20*((i/2)+1)), f'{(lados_iftam[i])["rumbo"]} - {(lados_iftam[i])["medida"]}')
+                c.drawString(d1+10, 420-(20*((i/2)+1)), f'{(lados_iftam[i])["rumbo"]} - {(lados_iftam[i])["medida"]}')
                 
                 try:
-                    c.drawString(d1+125, 440-(20*((i/2)+1)), f'{(lados_iftam[i+1])["rumbo"]} - {(lados_iftam[i+1])["medida"]}')
+                    c.drawString(d1+125, 420-(20*((i/2)+1)), f'{(lados_iftam[i+1])["rumbo"]} - {(lados_iftam[i+1])["medida"]}')
                 
                 except:
                     pass
         except:
-            c.drawString(d1+10, 420, f'No se cargo form de mensura')
+            c.drawString(d1+10, 400, f'No se cargo form de mensura')
             
         c.save() 
         print("Archivo PDF generado exitosamente en " + directorio)

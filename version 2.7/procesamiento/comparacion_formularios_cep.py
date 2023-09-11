@@ -579,22 +579,6 @@ def resumen(smp, pages_IFTAM_text, pages_IFFVN_text, pages_IFDOM_text,pages_FOMU
     filas_con_error = list()
     band_filas_error = list()
 
-    # for i in range(len(validaciones_comparacion)):
-    #     if "error" in (validaciones_comparacion.loc[i,'Observacion'].lower()):
-    #         filas_con_error.append(i)
-    #     else:
-    #         pass
-
-    # for j in range (1,45):
-    #     if j in filas_con_error:
-    #         band_filas_error.append("-1")
-    #     else:
-    #         pass
-
-    # if "-1" in band_filas_error:
-    #     resultado_final = "Error: Requisitos Mínimos de Admisibilidad Incorrectos"
-    # else:
-    #     resultado_final = "Ok: Requisitos Mínimos de Admisibilidad Correctos"
 
     return validaciones_comparacion,  lados_iftam, smp_fomubi, exp_fomubi,area_parc_dxf, area_excedente_dxf , sup_emp_dxf, sup_nueva_dxf, plantas_dxf,mensura_3,plantas_3,cubierta_3,semi_3,des_3, cont_3
 
