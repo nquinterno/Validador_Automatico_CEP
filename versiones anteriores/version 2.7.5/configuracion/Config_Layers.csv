@@ -1,0 +1,16 @@
+Nombre,Color,Tipo_Linea,Grosor_Linea;;;
+0,7,Continuous,-3;;;
+01-P-PLANO-CARATULA,7,Continuous,-3;;;
+02-P-ANCHO VIA PUBLICA,7,Continuous,-3;;;
+03-P-MEDIDAS-PARCELA,7,Continuous,-3;;;
+04-P-RECUADRO,7,Continuous,-3;;;
+05-M-NOMBRE-DE-CALLE,7,Continuous,-3;;;
+06-M-NUMERO-DE-PUERTA,7,Continuous,-3;;;
+07-M-MANZANA,7,Continuous,-3;;;
+08-M-PARCELA-PREVIO,7,Continuous,-3;;;
+09-M-PARCELA,7,Continuous,-3;;;
+10-M-MURO-SEPARATIVO-PARC,7,Continuous,-3;;;
+11-M-EXCEDENTE,7,Continuous,-3;;;
+12-M-CESION,7,Continuous,-3;;;
+13-M-SERVIDUMBRE,7,Continuous,-3;;;
+M-M-PB-SUP,7,Continuous,-3;;;
