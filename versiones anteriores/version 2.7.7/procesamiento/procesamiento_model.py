@@ -714,37 +714,37 @@ def chequeo_model(doc,nom_layers_dxf,colores):
                 # poligono_madre = Polygon(list(mejora_piso[i].get_points('xy'))) #para cada mejora obtiene los vertices y los prepara para la función de control
                  #genera poligono de mejora hija 1 para iniciar la union de mejoras hijas para luego restar a la madre
                 # poligono_agujero = Polygon(list(mejora_adentro_2[0].get_points('xy')))
-                try:
-                    for mejora in mejora_adentro_2:
-                        vert_mejora_pol = list()
-                        #va uniendo los poligonos de las mejoras hijas
-                        for lado in mejora.virtual_entities():
-                            vert_mejora_pol_arc = ""
-                            if lado.dxftype() == "ARC":
-                                vert_mejora_pol_arc = discretizar_curva(lado,0.01) 
-                            else:
-                                vert_mejora_pol.append([round(lado.dxf.start[0],3),round(lado.dxf.start[1],3)])
-                                vert_mejora_pol.append([round(lado.dxf.end[0],3),round(lado.dxf.end[1],3)])
+##                try:
+                for mejora in mejora_adentro_2:
+                    vert_mejora_pol = list()
+                    #va uniendo los poligonos de las mejoras hijas
+                    for lado in mejora.virtual_entities():
+                        vert_mejora_pol_arc = ""
+                        if lado.dxftype() == "ARC":
+                            vert_mejora_pol_arc = discretizar_curva(lado,0.01) 
+                        else:
+                            vert_mejora_pol.append([round(lado.dxf.start[0],3),round(lado.dxf.start[1],3)])
+                            vert_mejora_pol.append([round(lado.dxf.end[0],3),round(lado.dxf.end[1],3)])
 
-                            if vert_mejora_pol_arc != "":
-                                vert_mejora_pol = vert_mejora_pol + vert_mejora_pol_arc
-                            else:
-                                pass
-                        mejora_poligon = Polygon(vert_mejora_pol)
-                        # mejora_poligon = Polygon(list(mejora.get_points('xy')))
-                        poligono_agujero = union(poligono_agujero,mejora_poligon)
-                        
-                        if mejora.has_arc:
-                            band_mejora_adentro_arc.append("1")
-
+                        if vert_mejora_pol_arc != "":
+                            vert_mejora_pol = vert_mejora_pol + vert_mejora_pol_arc
+                        else:
+                            pass
+                    mejora_poligon = Polygon(vert_mejora_pol)
+                    # mejora_poligon = Polygon(list(mejora.get_points('xy')))
+                    poligono_agujero = union(poligono_agujero,mejora_poligon)
                     
-                    #resta a la mejora madre el agujero de las mejoras hijas
-                    poligono_diference = difference(poligono_madre,poligono_agujero)
-                    sup_mejora_descont_2 = area(poligono_diference) #calcula superficie del poligono despues de todas las restas
+                    if mejora.has_arc:
+                        band_mejora_adentro_arc.append("1")
 
-                except:
-                    print(messagebox.showerror(message="Eliminar vertices repetidos o ramificaciones de los poligonos de superficie", title="Error de Topología"))
-                    exit(3)
+                
+                #resta a la mejora madre el agujero de las mejoras hijas
+                poligono_diference = difference(poligono_madre,poligono_agujero)
+                sup_mejora_descont_2 = area(poligono_diference) #calcula superficie del poligono despues de todas las restas
+
+##                except:
+##                    print(messagebox.showerror(message="Eliminar vertices repetidos o ramificaciones de los poligonos de superficie", title="Error de Topología"))
+##                    exit(3)
 
                     
                 for form in form_piso: #detecta todos los formularios que caen dentro del poligono de mejora madre
