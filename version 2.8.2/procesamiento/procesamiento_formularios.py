@@ -64,7 +64,7 @@ def analisis_IFTAM(pages_IFTAM_text_0):
     if re.search(r'Superficie semicubierta:\s*(\d+\,\d+)', pages_IFTAM_text) != None:
         superficie_semicubierta = re.search(r'Superficie semicubierta:\s*(\d+\,\d+)', pages_IFTAM_text).group(1)
     elif re.search(r'Superficie semicubierta:\s*(\d+\.\d+\,\d+)', pages_IFTAM_text) != None:
-        superficie_semicubierta = re.search(r'Superficie semicubierta:\s*(\d+\,\d+)', pages_IFTAM_text).group(1)
+        superficie_semicubierta = re.search(r'Superficie semicubierta:\s*(\d+\.\d+\,\d+)', pages_IFTAM_text).group(1)
     else:
         pass
     
