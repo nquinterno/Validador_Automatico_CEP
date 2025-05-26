@@ -1,0 +1,15 @@
+
+*.log
+/dist
+/build
+*.docx
+*.spec
+/versiones_en_proceso
+/__pycache__
+/version 2.6/__pycache__
+/version 2.6/build
+/version 2.6/dist
+/version 2.6/procesamiento/__pycache__
+*/__pycache__
+*/build
+*/dist
