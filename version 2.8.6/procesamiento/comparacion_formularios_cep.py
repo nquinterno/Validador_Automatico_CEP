@@ -416,19 +416,31 @@ def resumen(smp, pages_IFTAM_text, pages_IFFVN_text, pages_IFDOM_text,pages_FOMU
         
         if resultado_inv == "ok":
 
-            if "invasion" in band_notas:
+            if "invasion" in band_notas and "cep_demolicion" not in band_notas:
 
                 validaciones_comparacion.loc[14,'Resultado']=-1
                 validaciones_comparacion.loc[14,'Observacion']="Error: Se indicó nota de invasón a vía pública y no se encuntran representadas en el model construcciones por fuera de la manzana"
+
+            elif "invasion" in band_notas and "cep_demolicion" in band_notas:
+                validaciones_comparacion.loc[15,'Resultado']=99
+                validaciones_comparacion.loc[15,'Observacion']="Ok: Se indicó nota de invasón a vía pública"
+            
             else:
                 
                 validaciones_comparacion.loc[14,'Resultado']=0
                 validaciones_comparacion.loc[14,'Observacion']="Ok: No corresponde validar nota de invasón a vía pública dado que no existen construcciones declaradas fuera de la manzana"
 
-            if "const_encaballada" in band_notas:
+            if "const_encaballada" in band_notas and "cep_demolicion" not in band_notas:
                 
                 validaciones_comparacion.loc[15,'Resultado']=-1
                 validaciones_comparacion.loc[15,'Observacion']="Error: Se indicó nota de construcciones encaballadas y no se encuntran representadas en el model construcciones encaballadas con otra parcela"
+
+
+            elif "const_encaballada" in band_notas and "cep_demolicion" in band_notas:
+                validaciones_comparacion.loc[15,'Resultado']=99
+                validaciones_comparacion.loc[15,'Observacion']="Ok: Se indicó nota de construcciones encaballadas"
+                
+
             else:
                 
                 validaciones_comparacion.loc[15,'Resultado']=0

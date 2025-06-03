@@ -1298,6 +1298,8 @@ def chequeo_model(doc,nom_layers_dxf,colores):
         validaciones_model.loc[17,'Observacion']="OK: No corresponde polig. de superficies puesto que no se han dibujado en los layers '-SUP', verifique que se trate de un CEP Demolición"        
         validaciones_model.loc[17,'Cetegoría']='Mejoras'
 
+        resultado_inv = "ok"
+
     #--- 2.5.4.1 INICIO Validación de Bloque Formularios--#
 
     if (len(forms)>0 or len(forms_empadronados)>0):
